@@ -1,5 +1,6 @@
 import app from "./app.js";
 import { connectToDb } from "./src/db/connect.js";
+import { createAuthorIndex } from "./src/models/authors.js";
 
 const PORT = process.env.PORT;
 
@@ -10,6 +11,8 @@ if (!PORT) {
 const startServer = async () => {
     try {
         await connectToDb();
+
+        await createAuthorIndex();
        
         app.listen(PORT, () => {
             console.log(`Server listening at 127.0.0.1:${PORT}`);
