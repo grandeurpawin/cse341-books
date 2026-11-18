@@ -1,11 +1,5 @@
 import express from "express";
-import {
-    getBooksHandler,
-    getBookByIdHandler,
-    createBookHandler,
-    updateBookHandler,
-    deleteBookHandler,
-} from "./controllers/books.js";
+import { getBooksHandler, getBookByIdHandler} from "./controllers/books.js";
 import {
     getAllAuthors,
     getAuthorById,
@@ -26,179 +20,34 @@ const router = express.Router();
  *     responses:
  *       200:
  *         description: Books returned successfully
- *         content:
- *           application/json:
- *             schema:
- *               type: array
- *               items:
- *                 type: object
- *                 properties:
- *                   id:
- *                     type: string
- *                     example: b1
- *                   authorId:
- *                     type: string
- *                     example: a1
- *                   title:
- *                     type: string
- *                     example: Patterns of Light
- *                   publicationDate:
- *                     type: string
- *                     example: '2021-08-17'
  *       500:
- *         description: Internal server error
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 message:
- *                   type: string
- *                   example: Internal server error
- *
- *   post:
- *     summary: Create a new book
- *     tags:
- *       - Books
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             required:
- *               - id
- *               - authorId
- *               - title
- *               - publicationDate
- *             properties:
- *               id:
- *                 type: string
- *                 example: b4
- *               authorId:
- *                 type: string
- *                 example: a1
- *               title:
- *                 type: string
- *                 example: Example Book
- *               publicationDate:
- *                 type: string
- *                 example: '2026-01-15'
- *     responses:
- *       201:
- *         description: Book created successfully
- *       400:
- *         description: Missing or invalid fields, duplicate book ID, or author not found
- *       500:
- *         description: Internal server error
+ *         description: Unable to retrieve books
  */
 router.get("/books", getBooksHandler);
-router.post("/books", createBookHandler);
-
 
 /**
  * @openapi
  * /books/{id}:
  *   get:
- *     summary: Get a book by custom ID
+ *     summary: Get one book by id
  *     tags:
  *       - Books
  *     parameters:
  *       - in: path
  *         name: id
  *         required: true
- *         description: Custom book ID, such as b1
+ *         description: The custom book id, such as b1
  *         schema:
  *           type: string
  *     responses:
  *       200:
  *         description: Book returned successfully
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 id:
- *                   type: string
- *                   example: b1
- *                 authorId:
- *                   type: string
- *                   example: a1
- *                 title:
- *                   type: string
- *                   example: Patterns of Light
- *                 publicationDate:
- *                   type: string
- *                   example: '2021-08-17'
  *       404:
  *         description: Book not found
  *       500:
- *         description: Internal server error
- *
- *   put:
- *     summary: Update a book
- *     tags:
- *       - Books
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         description: Custom book ID, such as b1
- *         schema:
- *           type: string
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             type: object
- *             required:
- *               - authorId
- *               - title
- *               - publicationDate
- *             properties:
- *               authorId:
- *                 type: string
- *                 example: a2
- *               title:
- *                 type: string
- *                 example: Updated Book
- *               publicationDate:
- *                 type: string
- *                 example: '2026-02-20'
- *     responses:
- *       200:
- *         description: Book updated successfully
- *       400:
- *         description: Missing or invalid fields, or authorId does not match an existing author
- *       404:
- *         description: Book not found
- *       500:
- *         description: Internal server error
- *
- *   delete:
- *     summary: Delete a book
- *     tags:
- *       - Books
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         description: Custom book ID, such as b1
- *         schema:
- *           type: string
- *     responses:
- *       204:
- *         description: Book deleted successfully
- *       404:
- *         description: Book not found
- *       500:
- *         description: Internal server error
+ *         description: Unable to retrieve book
  */
 router.get("/books/:id", getBookByIdHandler);
-router.put("/books/:id", updateBookHandler);
-router.delete("/books/:id", deleteBookHandler);
-
 
 
 /**
